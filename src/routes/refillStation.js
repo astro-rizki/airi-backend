@@ -53,10 +53,19 @@ router.post("/useVoucher", async (request, response) => {
       // set machine on
       queryStr = 'UPDATE station SET station_refill_status = true WHERE station_id=$1'
       await db.query(queryStr, [stationId]);
-      response.status(200).send('Sukses menggunakan voucher');
+      // response.status(200).send('Sukses menggunakan voucher');
     } else{
-      response.status(200).send('Voucher telah dipakai');
+      // response.status(200).send('Voucher telah dipakai');
     }
+
+    queryStr = 'SELECT * FROM station WHERE terminal_id=\''+ terminalId +"\'"
+    
+    db.query(queryStr, (error, results) => {
+      if (error) {
+        throw error;
+      }
+      response.status(200).json(results.rows);
+   });
  } catch (error) {
      console.error('Error querying database:', error);
      response.status(500).send('Internal Server Error');
