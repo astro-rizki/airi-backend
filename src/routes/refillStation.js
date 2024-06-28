@@ -87,10 +87,12 @@ router.post("/paymentDone", async (request, response) => {
       queryStr = 'UPDATE station SET station_refill_status = true WHERE station_id=$1'
       await db.query(queryStr, [stationId]);
 
-      response.status(200).send('Success');
+      let obj = {"status": "refill success"}
+      response.status(200).json(obj);
   } catch (error) {
       console.error('Error querying database:', error);
-      response.status(500).send('Internal Server Error');
+      obj = {"status": error}
+      response.status(500).json(obj);
   }
 });
 
@@ -108,10 +110,12 @@ router.post("/refillDone", async (request, response) => {
       queryStr = 'UPDATE station SET station_refill_status = false WHERE station_id=$1'
       await db.query(queryStr, [stationId]);
 
-      response.status(200).send('Success');
+      let obj = {"status": "refill success"}
+      response.status(200).json(obj);
   } catch (error) {
       console.error('Error querying database:', error);
-      response.status(500).send('Internal Server Error');
+      obj = {"status": error}
+      response.status(500).json(obj);
   }
 });
 
