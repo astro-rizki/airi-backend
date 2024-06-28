@@ -17,6 +17,7 @@ router.get("/refillStation/:id", (request, response) => {
 }); 
 
 router.post("/useVoucher", async (request, response) => {
+  console.log("Checking voucher: "+request.body.voucherCode)
   try {
     let queryStr = 'SELECT station_id FROM station WHERE terminal_id = $1';
     let terminalId = [request.body.terminalId];
